@@ -31,7 +31,7 @@ It details the schemas, API endpoints and workflows.
 Below is a visual representation of the general e-commerce system architecture.
 
 ![Blank diagram - Page 1 (3)](https://github.com/user-attachments/assets/be967c30-59c2-48e7-b533-c7d9af7209b8)
-![Blank diagram - Page 1 (2)](https://github.com/user-attachments/assets/ab62baa9-2d21-4914-ac92-4cbee3f95d4c)
+![Copy of Blank diagram - Page 1 (2)](https://github.com/user-attachments/assets/d9ace158-6200-4d3c-bc99-1b3be64817ca)
 
 
 
