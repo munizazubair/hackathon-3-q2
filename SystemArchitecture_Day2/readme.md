@@ -25,6 +25,16 @@ It details the schemas, API endpoints and workflows.
 - Third-Party APIs: Integration Needs: Shipment tracking, Payment gateways.
 
 
+
+## System Architecture
+
+Below is a visual representation of the general e-commerce system architecture.
+
+![Blank diagram - Page 1 (3)](https://github.com/user-attachments/assets/be967c30-59c2-48e7-b533-c7d9af7209b8)
+![Blank diagram - Page 1 (2)](https://github.com/user-attachments/assets/ab62baa9-2d21-4914-ac92-4cbee3f95d4c)
+
+
+
 ## API Endpoints and their Purpose and Methods
 Below are the key API endpoints, their purposes, and methods:
 
