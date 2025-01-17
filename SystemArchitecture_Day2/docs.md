@@ -1,1 +1,4 @@
 [A brief aims to provide specific details for a project so you can create the desired creative output. The brief can either be a project intended for your company's branding or a project you're ex.docx](https://github.com/user-attachments/files/18451421/A.brief.aims.to.provide.specific.details.for.a.project.so.you.can.create.the.desired.creative.output.The.brief.can.either.be.a.project.intended.for.your.company.s.branding.or.a.project.you.re.ex.docx)
+
+
+[A brief aims to provide specific details for a project so you can create the desired creative output. The brief can either be a project intended for your company's branding or a project you're exe.pdf](https://github.com/user-attachments/files/18451436/A.brief.aims.to.provide.specific.details.for.a.project.so.you.can.create.the.desired.creative.output.The.brief.can.either.be.a.project.intended.for.your.company.s.branding.or.a.project.you.re.exe.pdf)
