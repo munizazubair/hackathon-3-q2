@@ -9,42 +9,79 @@ export const productSchema = defineType({
       name: "title",
       title: "Product Title",
       type: "string",
+      validation: (Rule) =>
+        Rule.required()
+          .min(3)
+          .max(50)
+          .error("Title must be between 3 and 50 characters."),
     },
     {
       name: "price",
       title: "Price",
       type: "number",
+      validation: (Rule) =>
+        Rule.required()
+          .min(0)
+          .error("Price must be a positive number."),
     },
     {
       title: "Price without Discount",
       name: "priceWithoutDiscount",
       type: "number",
+      validation: (Rule) =>
+        Rule.min(0)
+          .custom((value, context) => {
+            const price = context.document?.price;
+            if (value && price && value < price) {
+              return "Price without discount must not be less than the discounted price.";
+            }
+            return true;
+          }),
     },
     {
       name: "badge",
       title: "Badge",
       type: "string",
+      validation: (Rule) =>
+        Rule.max(20)
+          .error("Badge text should not exceed 20 characters."),
     },
     {
       name: "image",
       title: "Product Image",
       type: "image",
+      validation: (Rule) =>
+        Rule.required()
+          .error("Product image is required."),
     },
     {
       name: "category",
       title: "Category",
       type: "reference",
       to: [{ type: "categories" }],
+      validation: (Rule) =>
+        Rule.required()
+          .error("Category is required."),
     },
     {
       name: "description",
       title: "Product Description",
       type: "text",
+      validation: (Rule) =>
+        Rule.required()
+          .min(10)
+          .max(500)
+          .error("Description must be between 10 and 500 characters."),
     },
     {
       name: "inventory",
       title: "Inventory Management",
       type: "number",
+      validation: (Rule) =>
+        Rule.required()
+          .min(0)
+          .error("Inventory must be 0 or more."),
+
     },
     {
       name: "tags",
@@ -62,6 +99,9 @@ export const productSchema = defineType({
           { title: "Detail Page", value: "detail" },
         ],
       },
+      validation: (Rule) =>
+        Rule.unique()
+          .error("Tags must be unique."),
     },
   ],
 });
