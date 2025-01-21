@@ -17,7 +17,11 @@ export async function GetProductData() {
   },
   description,
   inventory,
-  tags
+  tags,
+  reviews[] {
+        username,
+        reviewText,
+      }
     }`
     )
 }
@@ -25,7 +29,7 @@ export async function GetCategoriesData() {
   return sanityClient.fetch(
       groq`
       *[_type == "categories"] {
-
+_id,
 title,
 products,
 "imageURL": image.asset->url,
@@ -124,3 +128,29 @@ export async function GetProductData2() {
     )
     
 }
+export async function GetCategoryWithProductsData(categoryId: string) {
+  return sanityClient.fetch(
+    groq`
+    *[_type == "categories" && _id == $categoryId] {
+      title,
+      "imageURL": image.asset->url,
+      products[]->{
+        _id,
+        title,
+        price,
+        priceWithoutDiscount,
+        badge,
+        "imageURL": image.asset->url,
+        category->{
+          _id,
+          title
+        },
+        description,
+        inventory,
+        tags
+      }
+    }`,
+    { categoryId } // passing the categoryId to the query
+  );
+}
+

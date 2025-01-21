@@ -26,5 +26,6 @@ export const categorySchema = defineType({
             validation: (Rule) => Rule.required().min(0)
                 .error('Number of products must be 0 or more.'),
         }
+        
     ],
 });

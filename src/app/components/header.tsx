@@ -3,11 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "/public/Logo Icon.png"
 import { useState } from "react";
+import Search from "./search";
 export default function Header() {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const handleVisibility = () => {
         return(setIsVisible(isVisible => !isVisible))
     }
+
     return (
         <div>
             {/* Header 1 */}
@@ -52,11 +54,15 @@ export default function Header() {
                 </div>
             </div>
             {/* Header 2 */}
-            <div className="w-full h-[54px] md:h-[69px] lg:h-[84px] lg:gap-[380px] gap-[80px] md:gap-[130px] flex justify-around bg-color3 items-center">
-                <div className="flex justify-center items-center lg:gap-[8px] gap-[3.5px] md:gap-[6px]">
+            <div className="w-full h-[54px] md:h-[69px] lg:h-[84px] lg:gap-[380px] gap-[80px] md:gap-[130px] flex justify-around bg-color3 items-center ">
+                <div className="flex justify-center items-center lg:gap-[8px] gap-[3.5px] md:gap-[6px] ">
                     <Image className="h-[30px] w-[30px] md:h-[35px] md:w-[35px] lg:h-[40px] lg:w-[40px]" src={logo} alt="main logo"></Image>
                     <h1 className="lg:text-[26px] text-[18px] md:text-[20px] font-medium text-color">Comforty</h1>
                 </div>
+                
+<div className="flex gap-1">
+
+
                 <Link href={"/cart"}>
                 <div className="lg:h-[44px] lg:w-[120px] w-[70px] h-[30px] md:w-[95px] md:h-[38px] bg-white flex justify-center items-center lg:rounded-[8px] lg:gap-[8px] gap-[4px] md:gap-[6px]">
                     <div><svg className="lg:h-[22px] lg:w-[22px] md:h-[18px] md:w-[18px] w-[15px] h-[15px]" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -75,6 +81,7 @@ export default function Header() {
 
                 </div>
                 </Link>
+                </div>
             </div>
             {/* Header 3 */}
             <div className="w-full h-[48px] md:h-[65px] lg:h-[74px] lg:gap-[200px] flex justify-around md:gap-[190px] gap-[110px] bg-white items-center text-color4">
@@ -97,7 +104,7 @@ export default function Header() {
     </svg>
                                 </div>
                         <li><Link href={"/"}>Home</Link></li>
-                        <li><Link href={"/"}>Shop</Link></li>
+                        <li><Link href={"/shop"}>Shop</Link></li>
                         <li><Link href={"/productpage"}>Product</Link></li>
                         <li><Link href={"/"}>Pages</Link></li>
                         <li><Link href={"/about"}>About</Link></li>
@@ -106,7 +113,7 @@ export default function Header() {
                     </div>
                     <ul className="lg:gap-[32px] lg:flex justify-center items-center lg:text-[14px] hidden">
                         <li><Link href={"/"}>Home</Link></li>
-                        <li><Link href={""}>Shop</Link></li>
+                        <li><Link href={"/shop"}>Shop</Link></li>
                         <li><Link href={"/productpage"}>Product</Link></li>
                         <li><Link href={"/"}>Pages</Link></li>
                         <li><Link href={"/about"}>About</Link></li>
@@ -120,37 +127,9 @@ export default function Header() {
                 </Link>
 
             </div>
+
         </div>
     )
 }
 
 
-
-// "use client"
-
-// import { useContext } from "react"
-// import { loginContext } from "../context/context"
-
-// export default function Header() {
-//     const data = useContext(loginContext)
-//     if(!data) {
-//         return("something went wrong")
-//     }
-
-//     const handleUpdate = () => {
-//         if(data.update) {
-//             data.update({islogin:false});
-//         }
-//     }
-//     console.log(data);
-    
- 
- 
-//     return(
-//         <div>
-//             {data?.islogin && (<><p>logges in</p></>)}
-//             {!data.islogin && (<><p>logges false</p></>)}
-//             <button onClick={handleUpdate}>update value</button>
-//         </div>
-//     )
-// }

@@ -11,28 +11,13 @@ import logo4 from "/public/Logo (4).png"
 import logo5 from "/public/Logo (5).png"
 import logo6 from "/public/Logo (6).png"
 import leftImage from "/public/Image (1).png"
-import gridImage1 from "/public/Image (2).png"
-import gridImage2 from "/public/Image.png"
 import cartLogo from "/public/Buy 2.png"
 import cartLogo2 from "/public/Add Cart.png"
-
 import { useState, useEffect } from "react";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import Checkout from "./components/checkout";
-import { GetCategoriesData, GetFeaturedProducts, GetGalleryProducts, GetProductData, GetProductData2 } from "@/sanity/sanity.query";
-
-export interface ProductI {
-  name: string;
-  description: string;
-  quantity: number;
-  image: string;
-  price: number;
-  crossPrice: string;
-  tag: string;
-  cartLogo: string;
-  cartLogo2: string;
-}
+import { GetCategoriesData, GetCategoryWithProductsData, GetFeaturedProducts, GetGalleryProducts, GetProductData2 } from "@/sanity/sanity.query";
+import Categories from "./components/categories/page";
 
 interface Category {
   _id: number,
@@ -51,104 +36,44 @@ interface ProductInterface {
   inventory:number,
   tags:string
 }
-interface productInterface {
-  name: string,
-  quantity: string,
-  image: string
-}
 
 export default function Home() {
-
-
-  const product2: productInterface[] = [
-    { name: "Wing Chair", quantity: "3,584 Products", image: "/cateogary1.png" },
-    { name: "Wooden Chair", quantity: "154 Products", image: "/cateogary2.png" },
-    { name: "Desk Chair", quantity: "157 Products", image: "/cateogary3.png" }
-  ]
-
-
-
-  const [cart, setCart] = useState<ProductI[]>([]);
-
-  const addToCart = (product: ProductI) => {
-    const cartCopy = [...cart];
-    const existingProduct = cartCopy.find((item) => item.image === product.image);
-
-    if (existingProduct) {
-      existingProduct.quantity += 1;
-    } else {
-      cartCopy.push({ ...product, quantity: 0 });
-    }
-
-    localStorage.setItem("cart", JSON.stringify(cartCopy));
-    setCart(cartCopy);
-  };
-
-
-  const getProductQuantity = (name: string) => {
-    const product = cart.find((item) => item.image === name);
-    return product ? product.quantity : 0;
-  };
-
-
-
-  // const [cart2, setCart2] = useState<ProductI[]>([]);
+  
+  const [isLoading, setIsLoading] = useState(false); // Loading state
   const [categoryData, setCategoryData] = useState<ProductInterface[]>([]);
   const [productData2, setProductData2] = useState<ProductInterface[]>([]);
   const [featuredProducts, setFeaturedProoducts] = useState<ProductInterface[]>([]);
   const [galleryProducts, setGalleryProducts] = useState<ProductInterface[]>([]);
+  const [categoryFInd, setCategoryFind] = useState<ProductInterface[]>([]);
+  const categoryId = "";
 
   useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true); 
+      try {
+        const categoryData = await GetCategoriesData();
+        setCategoryData(categoryData);
 
-    async function fetchCategoryData() {
-      const categoryData: ProductInterface[] = await GetCategoriesData();
-      setCategoryData(categoryData);
+        const featuredProducts = await GetFeaturedProducts();
+        setFeaturedProoducts(featuredProducts);
 
+        const galleryProducts = await GetGalleryProducts();
+        setGalleryProducts(galleryProducts);
+
+        const productData2 = await GetProductData2();
+        setProductData2(productData2);
+
+        const categoryDataWithProducts = await GetCategoryWithProductsData(categoryId);
+        setCategoryFind(categoryDataWithProducts);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
-    fetchCategoryData();
 
-
-    async function fetchFeaturedProducts() {
-      const featuredProducts: ProductInterface[] = await GetFeaturedProducts();
-      setFeaturedProoducts(featuredProducts);
-
-    }
-    fetchFeaturedProducts();
-
-    async function fetchGalleryProducts() {
-      const galleryProducts: ProductInterface[] = await GetGalleryProducts();
-      setGalleryProducts(galleryProducts);
-
-    }
-    fetchGalleryProducts();
-
-    async function fetchProductData2() {
-      const productData: ProductInterface[] = await GetProductData2();
-      setProductData2(productData);
-
-    }
-    fetchProductData2();
+    fetchData();
   }, []);
-
-  // const addToCart2 = (product: ProductI) => {
-  //   const cartCopy = [...cart2];
-  //   const existingProduct = cartCopy.find((item) => item.image === product.image);
-
-  //   if (existingProduct) {
-  //     existingProduct.quantity += 1;
-  //   } else {
-  //     cartCopy.push({ ...product, quantity: 0 });
-  //   }
-
-  //   localStorage.setItem("cart", JSON.stringify(cartCopy));
-  //   setCart2(cartCopy); 
-  // };
-
-
-  const getProductQuantity2 = (name: string) => {
-    const product = cart.find((item) => item.image === name);
-    return product ? product.quantity : 0;
-  };
 
 
 
@@ -161,7 +86,7 @@ export default function Home() {
           <div className="xl:h-[337px] xl:w-[557px] lg:h-[300px] lg:w-[480px] md:w-[350px] mx-5 flex flex-col lg:gap-[10px] gap-[6px] md:gap-[8px]  ">
             <p className="lg:text-[14px] text-[16px] md:text-[12px] text-color">Welcome to chairy</p>
             <h1 className="xl:text-[60px] lg:text-[50px] text-[26px] sm:text-[30px] md:text-[33px]  text-color font-bold xl:leading-[66px] lg:leading-[53px] leading-[34px] md:leading-[33px]">Best Furniture Collection for your interior.</h1>
-            <Link href={"/productpage"}>
+            <Link href={"/shop"}>
               <button className="lg:h-[52px] h-[42px] md:h-[40px] lg:w-[171px] w-[140px] md:w-[130px] lg:mt-[25px] mt-[10px] md:mt-[18px] bg-color5 rounded-[8px] text-white flex justify-center items-center lg:gap-[20px] gap-[12px] md:gap-[15px] lg:text-[16px] text-[16px] md:text-[14px]">
                 <p>Shop Now</p>
                 <div><svg className="lg:h-[24px] lg:w-[24px] h-[18px] w-[18px] md:h-[20px] md:w-[20px]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -190,17 +115,22 @@ export default function Home() {
         <section className="h-auto lg:py-5 lg:w-[900px] xl:w-[1321px] w-[90%] md:w-[650px] bg-white flex flex-col gap-[20px] justify-around items-start no-gap">
           <h1 className="lg:text-[32px] text-[24px] md:text-[29px] text-color font-bold">Featured Products</h1>
           <div>
+          {isLoading ? (
+        <p className="md:text-xl py-5">Loading...</p> 
+      ) : (
             <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 gap-x-[25px] gap-y-[10px] no-gap">
+              
               {featuredProducts.map((item) => (
+                <Link  href={`/productpage/${item._id}`}>
                 <div
                   key={item._id}
                   className="group xl:w-[312px] flex flex-col gap-[5px] text-color relative no-gap"
                 >
-                  {/* Badge */}
-                  {item.badge && (
+                      {/* Badge */}
+                      {item.badge && (
                     <div
-                      className={`${item.badge === "New" ? "bg-color7" : "bg-color8"
-                        } lg:h-[26px] lg:w-[54px] h-[18px] w-[42px] md:h-[22px] md:w-[49px] rounded-[4px] text-white flex justify-center items-center lg:text-[13px] text-[9px] md:text-[11px] absolute lg:top-[20px] top-[5px] left-[5px] md:top-[8px] md:left-[8px] lg:left-[20px]`}
+                      className={`lg:h-[24px] lg:w-[50px] w-[40px] h-[16px] md:w-[46px] md:h-[20px] rounded-[4px] flex justify-center items-center lg:text-[12px] text-[8px] md:text-[10px] absolute lg:top-[10px] top-[5px] left-[5px] ${item.badge === "New" ? "bg-color7" : "bg-color8"
+                        } text-white`}
                     >
                       {item.badge}
                     </div>
@@ -218,11 +148,11 @@ export default function Home() {
                   {/* Product Details */}
                   <div className="flex justify-between items-center no-gap">
                     <div className="flex flex-col gap-[2px]">
-                      <h3 className="lg:text-[16px] text-[12px] md:text-[14px] group-hover:text-color6">
+                      <h3 className="lg:text-[16px] text-[11px] md:text-[14px] group-hover:text-color6">
                         {item.title}
                       </h3>
-                      <div className="flex items-center gap-[2px]">
-                        <h2 className="lg:text-[18px] text-[14px] md:text-[16px] font-bold">
+                      <div className="flex items-center gap-[4px] lg:gap-[10px]">
+                        <h2 className="lg:text-[18px] text-[12px] md:text-[16px] font-bold">
                           {item.price}
                         </h2>
                         {item.priceWithoutDiscount && (
@@ -232,123 +162,8 @@ export default function Home() {
                         )}
                       </div>
                     </div>
-                  </div>
-                  {/* Quantity */}
-                  <div className="lg:text-[14px] text-[12px] md:text-[14px] text-gray-600 no-gap">
-                    <span className="font-semibold">Quantity:</span>{" "}
-                    <span className="group-hover:text-color6">
-                      {getProductQuantity2(item.imageURL)}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-        {/* section 4 */}
-        <section className=" xl:mb-20 h-full pt-20 lg:pt-0 md:h-[700px] lg:w-[900px] xl:w-[1321px] w-[90%] md:w-[650px] bg-white flex flex-col gap-[18px] justify-around items-start  ">
-          <h1 className="lg:text-[32px] text-[24px] md:text-[29px] text-color font-bold">Top categories</h1>
-          <div> <Link href={"./productpage"}>
-            <div className="grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-[25px] md:gap-x-[35px] md:gap-y-[30px] gap-y-[20px]">{categoryData.map((data) => (
-              <div className="lg:h-[300px] lg:w-[300px] h-[280px] w-[280px] md:h-[300px] md:w-[300px] flex flex-col lg:gap-[10px] gap-[5px] md:gap-[8px]  relative rounded-[10px] ">
-                <img className="h-[280px] w-[280px] md:h-[300px] md:w-[300px] " src={data.imageURL} alt={data.title} width={424} height={424}></img>
-                <div className="absolute bottom-0 bg-color10 lg:h-[85px] h-[60px]  w-[280px] md:h-[80px] md:w-[300px]   rounded-b-[10px] text-white flex flex-col justify-center items-start lg:gap-[8px] gap-[4px] md:gap-[6px] lg:pl-[22px] pl-[12px] md:pl-[18px]">
-                  <h1 className="lg:text-[20px] text-[16px] md:text-[18px]">{data.title}</h1>
-                  <h3 className="lg:text-[14px] text-[10px] md:text-[12px] opacity-[70%] hover:underline">{data.products} Products</h3>
-                </div>
-
-              </div>
-            ))}</div>
-
-          </Link>
-          </div>
-        </section>
-
-        {/* section 5 */}
-        <section className="xl:h-[700px] lg:h-auto sm:h-auto h-auto pt-20 lg:pt-10 md:pt-16 lg:w-[90%] xl:w-[1341px] w-[95%] bg-white flex flex-col xl:flex-row lg:gap-[20px] gap-[20px] justify-around items-center">
-          {/* Rotated Heading */}
-          <p className="xl:-rotate-90 xl:text-[36px] lg:text-[32px] text-[24px] md:text-[28px] xl:w-[600px] xl:h-[90px] font-semibold text-center lg:text-left">
-            EXPLORE NEW AND POPULAR STYLES
-          </p>
-
-          {/* Left Image */}
-          <div>
-            <Image
-              className="md:h-[400px] md:w-[400px] lg:w-[500px] lg:h-[500px] xl:p-0"
-              src={leftImage}
-              alt="Left side image"
-              width={648}
-              height={648}
-            />
-          </div>
-
-          {/* Grid Layout for 4 Images */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-[15px] lg:gap-[20px]">
-            {galleryProducts.map((product: ProductInterface) => (
-              <div className="flex justify-center items-center flex-col gap-4">
-                <div>
-                <img
-                  className="h-[200px] w-[200px] md:h-[250px] md:w-[250px] lg:w-[250px] lg:h-[250px] object-cover rounded-lg shadow-sm"
-                  src={product.imageURL}
-                  alt="image"
-                  width={312}
-                  height={312}
-                />
-
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* section 6 */}
-       
-        <section className="h-full py-8 gap-4 lg:gap-2 lg:w-[900px] xl:w-[1321px] w-[90%] md:w-[650px] bg-white flex flex-col justify-center items-center">
-          <h1 className="lg:text-[32px] text-[24px] md:text-[29px] text-color font-bold lg:pb-3 pb-2">Our Products</h1>
-          <div>
-            <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 lg:gap-y-[35px] gap-x-[20px] gap-y-[8px]">
-              {productData2.map((item: ProductInterface) => (
-                <div
-                 className="group lg:h-[350px] xl:w-[300px] flex flex-col gap-[8px] text-color relative"
-                >
-                  {/* Badge */}
-                  {item.badge && (
-                    <div
-                      className={`lg:h-[24px] lg:w-[50px] w-[40px] h-[16px] md:w-[46px] md:h-[20px] rounded-[4px] flex justify-center items-center lg:text-[12px] text-[8px] md:text-[10px] absolute lg:top-[10px] top-[5px] left-[5px] ${item.badge === "New" ? "bg-color7" : "bg-color8"
-                        } text-white`}
-                    >
-                      {item.badge}
-                    </div>
-                  )}
-
-                  {/* Product Image */}
-                  <img
-                    className="lg:h-[300px] lg:w-[300px] text-[12px] md:text-[14px]"
-                    width={300}
-                    height={300}
-                    src={item.imageURL}
-                    alt={item.title}
-                  ></img>
-
-                  {/* Product Details */}
-                  <div className="flex justify-between items-center">
-                    <div className="flex flex-col gap-[4px]">
-                      <h3 className="lg:text-[16px] text-[12px] md:text-[14px] group-hover:text-color6">{item.title}</h3>
-                      <div className="flex items-center gap-[4px]">
-                        <h2 className="lg:text-[18px] text-[14px] md:text-[16px] font-bold">{item.price}</h2>
-                        
-                          <div className="lg:text-[16px] text-[12px] md:text-[14px] text-color9 line-through">
-                            {item.priceWithoutDiscount}
-                          </div>
-                      </div>
-                    </div>
-
-                    {/* Add to Cart Buttons */}
                     <div className="flex">
                       <button
-                        // onClick={() => addToCart(item)}
                         className="lg:h-[40px] lg:w-[40px] h-[24px] w-[24px] md:h-[36px] md:w-[36px] rounded-[2px] hidden group-hover:flex justify-center items-center bg-color5"
                       >
                         <Image
@@ -370,19 +185,132 @@ export default function Home() {
                       </button>
                     </div>
                   </div>
-
-                  {/* Quantity Section */}
-                  <div className="lg:text-[14px] text-[12px] md:text-[14px] text-gray-600">
-                    <span className="font-semibold">Quantity:</span>{" "}
-                    <span className="group-hover:text-color6">{getProductQuantity(item.imageURL)}</span>
-                  </div>
+                  
                 </div>
+                </Link>
               ))}
+              
             </div>
+      )}
           </div>
         </section>
 
 
+        {/* section 4 */}
+       <Categories />
+       
+        {/* section 5 */}
+        <section className="lg:h-auto sm:h-auto h-auto pt-20 lg:pt-10 md:pt-16 lg:w-[90%] xl:w-[1341px] w-[95%] bg-white flex flex-col xl:flex-row lg:gap-[20px] gap-[20px] justify-around items-center lg:hidden">
+          <p className="xl:-rotate-90 xl:text-[36px] lg:text-[32px] text-[24px] md:text-[28px] xl:w-[600px] xl:h-[90px] font-semibold text-center lg:text-left">
+            EXPLORE NEW AND POPULAR STYLES
+          </p>
+
+          <div>
+            <Image
+              className="md:h-[400px] md:w-[400px] lg:w-[500px] lg:h-[500px] xl:p-0"
+              src={leftImage}
+              alt="Left side image"
+              width={648}
+              height={648}
+            />
+          </div>
+          {isLoading ? (
+        <p>Loading...</p> // Show loading indicator
+      ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-2 gap-[15px] lg:gap-[20px]">
+            {galleryProducts.map((product: ProductInterface) => (
+              <div className="flex justify-center items-center flex-col gap-4">
+                <div>
+                <img
+                  className="h-[200px] w-[200px] md:h-[250px] md:w-[250px] lg:w-[250px] lg:h-[250px] object-cover rounded-lg shadow-sm"
+                  src={product.imageURL}
+                  alt="image"
+                  width={312}
+                  height={312}
+                />
+
+                </div>
+              </div>
+            ))}
+          </div>
+      )}
+        </section>
+
+        {/* section 6 */}
+       
+        <section className="h-full py-8 gap-4 lg:gap-2 lg:w-[900px] xl:w-[1321px] w-[90%] md:w-[650px] bg-white flex flex-col justify-center items-center">
+          <h1 className="lg:text-[32px] text-[24px] md:text-[29px] text-color font-bold lg:pb-3 pb-2">Our Products</h1>
+          <div>
+          {isLoading ? (
+        <p>Loading...</p> // Show loading indicator
+      ) : (
+            <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 lg:gap-y-[35px] gap-x-[20px] gap-y-[8px]">
+             
+              {productData2.map((item: ProductInterface) => (
+                 <Link  href={`/productpage/${item._id}`}>
+                <div
+                 className="group lg:h-[350px] xl:w-[300px] flex flex-col gap-[8px] text-color relative"
+                >
+                  {item.badge && (
+                    <div
+                      className={`lg:h-[24px] lg:w-[50px] w-[40px] h-[16px] md:w-[46px] md:h-[20px] rounded-[4px] flex justify-center items-center lg:text-[12px] text-[8px] md:text-[10px] absolute lg:top-[10px] top-[5px] left-[5px] ${item.badge === "New" ? "bg-color7" : "bg-color8"
+                        } text-white`}
+                    >
+                      {item.badge}
+                    </div>
+                  )}
+
+                  <img
+                    className="lg:h-[300px] lg:w-[300px] text-[12px] md:text-[14px]"
+                    width={300}
+                    height={300}
+                    src={item.imageURL}
+                    alt={item.title}
+                  ></img>
+
+                  <div className="flex justify-between items-center">
+                    <div className="flex flex-col gap-[3px]">
+                      <h3 className="lg:text-[16px] text-[11px] md:text-[14px] group-hover:text-color6">{item.title}</h3>
+                      <div className="flex items-center gap-[4px]">
+                        <h2 className="lg:text-[18px] text-[12px] md:text-[16px] font-bold">{item.price}</h2>
+                        
+                          <div className="lg:text-[16px] text-[12px] md:text-[14px] text-color9 line-through">
+                            {item.priceWithoutDiscount}
+                          </div>
+                      </div>
+                    </div>
+
+                    <div className="flex">
+                      <button
+                        className="lg:h-[40px] lg:w-[40px] h-[24px] w-[24px] md:h-[36px] md:w-[36px] rounded-[2px] hidden group-hover:flex justify-center items-center bg-color5"
+                      >
+                        <Image
+                          className="h-[12px] w-[12px] md:h-[20px] md:w-[20px]"
+                          src={cartLogo}
+                          alt={item.title}
+                          width={16}
+                          height={16}
+                        ></Image>
+                      </button>
+                      <button className="bg-color3 lg:h-[40px] lg:w-[40px] h-[24px] w-[24px] md:h-[36px] md:w-[36px] rounded-[2px] flex group-hover:hidden justify-center items-center">
+                        <Image
+                          className="h-[20px] w-[20px] md:h-[30px] md:w-[30px]"
+                          src={cartLogo2}
+                          alt={item.title}
+                          width={30}
+                          height={30}
+                        ></Image>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                </Link>
+              ))}
+            
+            </div>
+      )}
+          </div>
+        </section>
 
       </div>
       <Footer />

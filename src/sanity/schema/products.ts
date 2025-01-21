@@ -103,5 +103,24 @@ export const productSchema = defineType({
         Rule.unique()
           .error("Tags must be unique."),
     },
+    {
+      name: 'quantity',
+      type: 'number',
+      title: 'Quantity',
+      validation: (Rule: any) => Rule.min(0).error('Stock level must be a positive number.'),
+    },
+{
+  name: "reviews",
+  type: "array",
+  of: [
+    {
+      type: "object",
+      fields: [
+        { name: "username", type: "string" , title: "UserName" },
+        { name: "reviewText", type: "text", title: "Review Text"},
+      ],
+    },
   ],
-});
+},
+    ]}
+ );
