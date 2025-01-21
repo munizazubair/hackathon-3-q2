@@ -9,7 +9,7 @@ import cartLogo2 from "/public/Add Cart.png";
 import Header from "../../header";
 import Footer from "../../footer";
 import ImageBack from "/public/back.icon.png"
-import { ProductInterface } from "@/app/(with-header)/productpage/[id]/page";
+import { ProductInterface } from "@/app/(withHeader)/productpage/[id]/page";
 export default function CategoriesDetails({ params }: { params: { id: string } }) {
   if (!params.id) {
     return <div>Invalid category.</div>;

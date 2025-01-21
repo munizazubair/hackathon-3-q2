@@ -5,7 +5,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
 import Image1 from "../../../public/search.png"
-import { ProductInterface } from '../(with-header)/productpage/[id]/page';
+import { ProductInterface } from '../(withHeader)/productpage/[id]/page';
 export default function Search() {
     
    

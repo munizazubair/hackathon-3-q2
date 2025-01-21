@@ -1,5 +1,5 @@
 "use client";
-import { ProductInterface } from '@/app/(with-header)/productpage/[id]/page';
+import { ProductInterface } from '@/app/(withHeader)/productpage/[id]/page';
 import { GetCategoriesData } from '@/sanity/sanity.query';
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
