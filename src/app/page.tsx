@@ -39,7 +39,7 @@ interface ProductInterface {
 
 export default function Home() {
   
-  const [isLoading, setIsLoading] = useState(false); // Loading state
+  const [isLoading, setIsLoading] = useState(false); 
   const [categoryData, setCategoryData] = useState<ProductInterface[]>([]);
   const [productData2, setProductData2] = useState<ProductInterface[]>([]);
   const [featuredProducts, setFeaturedProoducts] = useState<ProductInterface[]>([]);
@@ -119,7 +119,6 @@ export default function Home() {
         <p className="md:text-xl py-5">Loading...</p> 
       ) : (
             <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 gap-x-[25px] gap-y-[10px] no-gap">
-              
               {featuredProducts.map((item) => (
                 <Link  href={`/productpage/${item._id}`}>
                 <div
