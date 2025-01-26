@@ -42,7 +42,7 @@ products,
 export async function GetFeaturedProducts() {
     return sanityClient.fetch(
         groq`
-        *[_type == "products" && "featured" in tags]{
+        *[_type == "products" && "featured" in tags][0..3]{
   _id,
   title,
   price,
@@ -86,7 +86,7 @@ export async function GetGalleryProducts() {
 export async function GetInstagramProducts() {
   return sanityClient.fetch(
       groq`
-      *[_type == "products" && "instagram" in tags]{
+      *[_type == "products" && "instagram" in tags][0..5]{
 _id,
 title,
 price,
