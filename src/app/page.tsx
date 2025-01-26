@@ -14,8 +14,8 @@ import leftImage from "/public/Image (1).png"
 import cartLogo from "/public/Buy 2.png"
 import cartLogo2 from "/public/Add Cart.png"
 import { useState, useEffect } from "react";
-import Header from "./components/header";
 import Footer from "./components/footer";
+import Header from "./components/header";
 import { GetCategoriesData, GetCategoryWithProductsData, GetFeaturedProducts, GetGalleryProducts, GetProductData2 } from "@/sanity/sanity.query";
 import Categories from "./components/categories/page";
 
@@ -244,7 +244,6 @@ export default function Home() {
         <p>Loading...</p> // Show loading indicator
       ) : (
             <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 lg:gap-y-[35px] gap-x-[20px] gap-y-[8px]">
-             
               {productData2.map((item: ProductInterface) => (
                  <Link  href={`/productpage/${item._id}`}>
                 <div
@@ -310,7 +309,6 @@ export default function Home() {
       )}
           </div>
         </section>
-
       </div>
       <Footer />
     </>
