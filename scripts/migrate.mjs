@@ -13,18 +13,18 @@ const {
 } = process.env;
 
 // Check if the required environment variables are provided
-if (!NEXT_PUBLIC_SANITY_PROJECT_ID || !NEXT_PUBLIC_SANITY_AUTH_TOKEN) {
+if (!"zdbi0t6c" || !"skiPCGgveXI59S84GZDEVCLpSVIzqdtuwPYZC5AuSmQdJsxVo6irQo5TubIceF9MQgZ7IPwYOyVazuePQdyWewFtOqHl3eL2pCAFyGJbPvEKpzd9YjbVDDwyCWHcqP5gCXpRWkbFvLvCi0MZeJ44kDtRbdrhesIw8YYuxBDhn5U5QbCCeBWh") {
   console.error("Missing required environment variables. Please check your .env.local file.");
   process.exit(1); // Stop execution if variables are missing
 }
 
 // Create a Sanity client instance to interact with the target Sanity dataset
 const targetClient = createClient({
-  projectId: NEXT_PUBLIC_SANITY_PROJECT_ID, // Your Sanity project ID
+  projectId: "zdbi0t6c", // Your Sanity project ID
   dataset: NEXT_PUBLIC_SANITY_DATASET || "production", // Default to "production" if not set
   useCdn: false, // Disable CDN for real-time updates
   apiVersion: "2023-01-01", // Sanity API version
-  token: NEXT_PUBLIC_SANITY_AUTH_TOKEN, // API token for authentication
+  token: "skiPCGgveXI59S84GZDEVCLpSVIzqdtuwPYZC5AuSmQdJsxVo6irQo5TubIceF9MQgZ7IPwYOyVazuePQdyWewFtOqHl3eL2pCAFyGJbPvEKpzd9YjbVDDwyCWHcqP5gCXpRWkbFvLvCi0MZeJ44kDtRbdrhesIw8YYuxBDhn5U5QbCCeBWh", // API token for authentication
 });
 
 // Function to upload an image to Sanity

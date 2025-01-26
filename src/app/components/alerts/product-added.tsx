@@ -1,20 +1,15 @@
 "use client";
 
-// components/Alert.tsx
-import React from 'react';
-
 interface AlertProps {
   message: string | null;
-  onClose: () => void; // Function to close the alert
+  onClose: () => void; 
 }
 
 export default function Alert({ message , onClose }: AlertProps) {
-
   return (
     <div
       className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[200px] w-[75%] md:w-[450px] bg-color4  text-white shadow-black shadow-md rounded-[2px]`}
-      role="alert"
-    >
+      role="alert">
       <div className="flex justify-end  pt-2 pr-2 md:pt-3 md:pr-3">
         <button onClick={onClose} className="ml-4 text-lg">
           <svg width="12" height="12" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +23,8 @@ export default function Alert({ message , onClose }: AlertProps) {
       </div>
 
       <div className="flex ">
-        <button onClick={onClose} className="ml-4 text-lg text-color bg-white h-7 w-20 rounded-[2px] text-[10px] font-semibold">
+        <button onClick={onClose} 
+        className="ml-4 text-lg text-color bg-white h-7 w-20 rounded-[2px] text-[10px] font-semibold">
          Ok
         </button>
       </div>

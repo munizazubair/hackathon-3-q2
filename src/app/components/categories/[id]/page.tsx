@@ -48,7 +48,8 @@ return(
 <div className="flex justify-center">
                 <section className=" h-full my-3 md:my-5 lg:w-[1000px] lg:h-[400px] xl:w-[1321px] w-[90%] md:w-[650px] bg-white flex flex-col justify-around items-start  ">
         <div>
-          <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 lg:gap-y-[20px] md:gap-x-[30px] lg:gap-x-7  gap-x-[25px] gap-y-[10px] mx-6 ">{filteredProducts.map((item) => (
+          <div className="grid xl:grid-cols-4 lg:grid-cols-3 grid-cols-2 lg:gap-y-[20px] md:gap-x-[30px] lg:gap-x-7  gap-x-[25px] gap-y-[10px] mx-6 ">
+            {filteredProducts.map((item) => (
                       <Link href={`/productpage/${item._id}`}>
 
             <div  className="group lg:h-[377px] xl:w-[312px] flex flex-col lg:gap-[10px] gap-[5px] md:gap-[8px] text-color relative ">
