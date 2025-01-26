@@ -9,7 +9,7 @@ const {
   NEXT_PUBLIC_SANITY_PROJECT_ID, // Sanity project ID
   NEXT_PUBLIC_SANITY_DATASET, // Sanity dataset (e.g., "production")
   NEXT_PUBLIC_SANITY_AUTH_TOKEN, // Sanity API token
-  BASE_URL = "https://giaic-hackathon-template-08.vercel.app", // API base URL for products and categories
+  BASE_URL = "https://hackathon-my-3-q2-nhf0oqnvv-munizazubairs-projects.vercel.app", // API base URL for products and categories
 } = process.env;
 
 // Check if the required environment variables are provided
