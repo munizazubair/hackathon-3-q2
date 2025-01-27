@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "/public/Logo Icon.png"
 import { useState } from "react";
-import Search from "./search";
 export default function Header() {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const handleVisibility = () => {
