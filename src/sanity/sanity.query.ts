@@ -153,4 +153,14 @@ export async function GetCategoryWithProductsData(categoryId: string) {
     { categoryId } // passing the categoryId to the query
   );
 }
-
+export async function faqQuery() {
+  return sanityClient.fetch(
+    groq`
+*[_type == "faqQuestion"]{
+  _id,
+  question,
+  status,
+  answer
+}`
+  )
+}
