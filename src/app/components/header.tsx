@@ -3,6 +3,8 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "/public/Logo Icon.png"
 import { useState } from "react";
+import { SignInButton, SignUpButton, UserButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignIn } from "@clerk/clerk-react";
 export default function Header() {
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const handleVisibility = () => {
@@ -13,6 +15,9 @@ export default function Header() {
         <div>
             {/* Header 1 */}
             <div className="w-full h-[25px]  md:h-[30px] lg:h-[45px] lg:gap-[180px] flex justify-around bg-color items-center text-color2">
+                <div>
+                
+                </div>
                 <div className="flex justify-center items-center lg:gap-[8px] gap-[3px] md:gap-[5px]">
                     <div><svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.3334 4.5L6.00008 11.8333L2.66675 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -30,7 +35,6 @@ export default function Header() {
                             <option value="ja">Jap</option>
                             <option value="ru">Rus</option>
                             <option value="ar">Ara</option>
-                            <option value="ur">Urdu</option>
                         </select>
                     </div>
                     <p><Link href={"/faq"}>Faqs</Link></p>
@@ -50,7 +54,18 @@ export default function Header() {
                         </div>
                         <p><Link href={"/contact"}>Need Help</Link></p>
                     </div>
+                    <div>
+                    <SignedIn>
+                <UserButton />
+            </SignedIn>
+            <SignedOut>
+                <SignInButton />
+            </SignedOut>
+            </div>
                 </div>
+ 
+
+
             </div>
             {/* Header 2 */}
             <div className="w-full h-[54px] md:h-[69px] lg:h-[84px] lg:gap-[380px] gap-[80px] md:gap-[130px] flex justify-around bg-color3 items-center ">
@@ -95,8 +110,8 @@ export default function Header() {
 </svg>
                         </div> : 
                         <div className="relative">
-                            <ul className="flex flex-col justify-center items-center text-[12px] md:text-[14px] bg-color gap-[5px] text-color2 md:h-[170px] h-[150px] w-[90px] md:w-[110px] absolute -top-3 md:-top-5 z-20">
-                                <div className="pr-12 pt-1">
+                            <ul className="flex flex-col justify-center items-center text-[12px] md:text-[14px] bg-color gap-[4px] text-color2 md:h-[170px] h-[150px] w-[90px] md:w-[110px] absolute -top-3 md:-top-5 z-20  pb-2">
+                                <div className="pr-20 pt-4">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
@@ -105,17 +120,18 @@ export default function Header() {
                         <li><Link href={"/"}>Home</Link></li>
                         <li><Link href={"/shop"}>Shop</Link></li>
                         <li><Link href={"/productpage"}>Product</Link></li>
-                        <li><Link href={"/"}>Pages</Link></li>
                         <li><Link href={"/about"}>About</Link></li>
+                        <li className="pb-3"><Link href={"/wishlist"}>Wishlist</Link></li>
                     </ul>
+                    
                     </div>}
                     </div>
                     <ul className="lg:gap-[32px] lg:flex justify-center items-center lg:text-[14px] hidden">
                         <li><Link href={"/"}>Home</Link></li>
                         <li><Link href={"/shop"}>Shop</Link></li>
                         <li><Link href={"/productpage"}>Product</Link></li>
-                        <li><Link href={"/"}>Pages</Link></li>
                         <li><Link href={"/about"}>About</Link></li>
+                        <li><Link href={"/wishlist"}>Wishlist</Link></li>
                     </ul>
                 </div>
                <Link href={"/contact"}>

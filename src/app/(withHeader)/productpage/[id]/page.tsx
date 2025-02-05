@@ -6,6 +6,8 @@ import { GetFeaturedProducts, GetProductData } from "@/sanity/sanity.query";
 import Link from "next/link";
 import sanityClient from "@/sanity/sanity.client";
 import Alert from "@/app/components/alerts/product-added";
+import LikeButton from "@/components/liked-button/page";
+import SocialShare from "@/app/components/social-sharing";
 
 export interface ProductInterface {
   _id: number;
@@ -106,15 +108,18 @@ export default function Details({ params }: { params: { id: string } }) {
   return productData ? (
     <div>
       <section className="flex flex-col md:flex-row xl:gap-20 h-full md:gap-8 gap-10 items-center md:items-start justify-center py-8 md:py-12 pb-5 md:pt-5 lg:pt-16 md:pl-10">
-        <div>
-          <img
+      <div className="relative">
+            <img
             src={productData.imageURL}
             alt={productData.title}
             height={607}
             width={675}
             className="xl:h-[607px] xl:w-[675px] lg:h-[300px] lg:w-[320px] h-[200px] w-[215px] md:h-[250px] md:w-[400px]"
           />
-        </div>
+          <div className="absolute top-2 right-2 lg:top-3 lg:right-3 xl:right-4 xl:top-4">
+            <LikeButton item={productData} />
+          </div>
+         </div>
         <div className="flex flex-col xl:gap-5 gap-3 pl-2 ml-2">
           <h1 className="xl:text-[60px] lg:text-[35px] font-bold xl:w-[500px] text-[17px] md:text-[20px]">
             {productData.title}</h1>
@@ -122,6 +127,7 @@ export default function Details({ params }: { params: { id: string } }) {
             ${productData.price} USD</div>
           <div className="h-[1px] xl:w-[521px] bg-color27 lg:w-[400px] w-[90%]"></div>
           <p className="xl:text-[22px] text-[12px] xl:h-[101px] lg:w-[400px] xl:w-[543px] text-color w-[80%]">{productData.description}</p>
+          <SocialShare />
           <div className=" flex flex-col gap-5 justify-around">
             <button
               className="xl:h-[63px] xl:w-[212px] h-[28px] w-[120px] lg:h-[40px] lg:w-[180px] rounded-[4px] bg-color5 flex items-center justify-center text-white xl:gap-3 md:gap-2 gap-1 text-[12px] lg:text-[17px]"
@@ -138,10 +144,37 @@ export default function Details({ params }: { params: { id: string } }) {
               <Alert message={alertMessage} onClose={handleCloseAlert} />
 
             )}
-            <button
-              className="xl:h-[63px] xl:w-[212px] h-[28px] w-[120px] lg:h-[40px] lg:w-[180px] rounded-[4px] bg-color5 flex items-center justify-center text-white xl:gap-3 md:gap-2 gap-1 text-[12px] lg:text-[17px]"
+           <button
               onClick={handleVIsibility}
-            >Check Reviews</button>
+            >
+            {visible ? 
+            <div className="flex justify-center items-center xl:h-[63px] xl:w-[212px] h-[28px] w-[120px] lg:h-[40px] lg:w-[180px] rounded-[4px] bg-color5 text-white gap-0.5 text-[12px] lg:text-[17px] xl:text-[19px]">Check Reviews
+             <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="w-6 h-6 md:h-7 md:w-7 lg:h-9 lg:w-9 xl:h-12 xl:w-12"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 10l-4 4-4-4" />
+                  </svg>
+                  </div> : 
+            <div className="flex justify-center items-center xl:h-[63px] xl:w-[212px] h-[28px] w-[120px] lg:h-[40px] lg:w-[180px] rounded-[4px] bg-color5 text-white xl:gap-3 md:gap-2 gap-1 text-[12px] lg:text-[17px]">Check Reviews
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="w-6 h-6 md:h-7 md:w-7 lg:h-12 lg:w-12 xl:h-16 xl:w-14"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 14l4-4 4 4" />
+                  </svg>
+                  </div>
+                  }
+           
+ </button>
           </div>
         </div>
       </section>
@@ -160,7 +193,7 @@ export default function Details({ params }: { params: { id: string } }) {
               {productData.reviews?.map((review) => (
                 <div className="flex flex-col items-center">
                   <div
-                    className="p-3 border w-[280px] md:w-[320px] lg:w-[280px] xl:w-[380px] flex flex-col flex-nowrap rounded-lg shadow-md bg-white hover:shadow-lg transition-shadow duration-100"
+                    className="p-3 border-[0.5px] w-[280px] md:w-[320px] lg:w-[280px] xl:w-[380px] flex flex-col flex-nowrap rounded-[4px] shadow-md bg-white hover:shadow-lg transition-shadow duration-100"
                   >
                     <div className="flex items-center mb-3">
                       <div className="h-6 w-6 rounded-full bg-gray-200 flex items-center justify-center text-sm font-semibold text-gray-700">

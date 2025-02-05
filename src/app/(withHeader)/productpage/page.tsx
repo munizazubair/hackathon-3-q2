@@ -19,7 +19,7 @@ interface ProductInterface {
   description: string,
   inventory: number,
   tags: string,
-  category: string
+  category:  { _id: string, title: string, imageURL: string }
 }
 export default function Product() {
 
@@ -114,5 +114,5 @@ export default function Product() {
         </div>
       </section>
     </div>
-  )
+          )
 }

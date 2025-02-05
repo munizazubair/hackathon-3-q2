@@ -65,7 +65,7 @@ export async function GetFeaturedProducts() {
 export async function GetGalleryProducts() {
     return sanityClient.fetch(
         groq`
-        *[_type == "products" && "gallery" in tags]{
+        *[_type == "products" && "gallery" in tags ][0..3]{
   _id,
   title,
   price,
@@ -156,10 +156,9 @@ export async function GetCategoryWithProductsData(categoryId: string) {
 export async function faqQuery() {
   return sanityClient.fetch(
     groq`
-*[_type == "faqQuestion"]{
+*[_type == "faq"]{
   _id,
   question,
-  status,
   answer
 }`
   )

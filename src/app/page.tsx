@@ -98,9 +98,7 @@ export default function Home() {
           </div>
           <div><Image className="xl:h-[584px] lg:h-[400px] h-[300px] md:h-[304px] xl:w-[434px] lg:w-[300px] w-[230px] md:w-[220px]" src={sideImage} alt="side image of the main page "></Image></div>
         </section>
-        {/* <FAQPage />
-<SocialShare /> */}
- 
+        
    {/* section 2 */}
         <section className="xl:h-[139px] lg:h-[120px] h-[70px] md:h-[130px] lg:w-[900px] xl:w-[1321px] w-[90%] md:w-[650px] bg-white grid grid-cols-7 gap-2 justify-around items-center  ">
           <div className="flex justify-center items-center"><Image className="lg:h-[87px] lg:w-[85px] h-[25px] w-[28px] md:h-[40px] md:w-[38px]" src={logo} alt="logo"></Image></div>
@@ -316,3 +314,4 @@ export default function Home() {
     </>
   )
 }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

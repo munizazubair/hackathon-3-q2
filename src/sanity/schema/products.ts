@@ -81,7 +81,6 @@ export const productSchema = defineType({
         Rule.required()
           .min(0)
           .error("Inventory must be 0 or more."),
-
     },
     {
       name: "tags",
@@ -108,19 +107,32 @@ export const productSchema = defineType({
       type: 'number',
       title: 'Quantity',
       validation: (Rule: any) => Rule.min(0).error('Stock level must be a positive number.'),
-    },
-{
-  name: "reviews",
-  type: "array",
-  of: [
+    },
     {
-      type: "object",
-      fields: [
-        { name: "username", type: "string" , title: "UserName" },
-        { name: "reviewText", type: "text", title: "Review Text"},
+      name: "reviews",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "username", type: "string", title: "UserName" },
+            { name: "reviewText", type: "text", title: "Review Text" },
+          ],
+        },
       ],
     },
+    {
+      name: "status",
+      title: "Product Status",
+      type: "string",
+      options: {
+        list: [
+          { title: "Published", value: "published" },
+          { title: "Unpublished", value: "unpublished" }
+        ],
+        layout: "radio",
+      },
+      validation: (Rule) => Rule.required().error("Product status is required."),
+    },
   ],
-},
-    ]}
- );
+});
