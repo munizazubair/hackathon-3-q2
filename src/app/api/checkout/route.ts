@@ -35,8 +35,8 @@ export async function POST(req: Request) {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
-      success_url: "http://localhost:3001/order-completed",
-      cancel_url: "http://localhost:3001/order-cancel",
+      success_url: "https://hackathon-3-q2-final-mhb91ai54-munizazubairs-projects.vercel.app/order-completed",
+      cancel_url: "https://hackathon-3-q2-final-mhb91ai54-munizazubairs-projects.vercel.app/order-cancel",
       line_items: lineItems,
     });
 
